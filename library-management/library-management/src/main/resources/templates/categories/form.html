@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Thông tin thể loại')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <h1>Thông tin thể loại</h1>
+    <form class="panel" th:action="@{/categories}" th:object="${category}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>Tên thể loại</label>
+        <input th:field="*{name}">
+        <div class="error" th:errors="*{name}"></div>
+        <label>Mô tả</label>
+        <input th:field="*{description}">
+        <label><input type="checkbox" th:field="*{active}" style="width:auto"> Đang hoạt động</label>
+        <div class="actions"><button type="submit">Lưu</button><a class="button secondary" th:href="@{/categories}">Hủy</a></div>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Báo cáo')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <h1>Báo cáo</h1>
+    <section class="panel">
+        <h2>Top sách được mượn nhiều nhất</h2>
+        <table><thead><tr><th>Sách</th><th>Lượt mượn</th></tr></thead><tbody><tr th:each="row : ${topBooks}"><td th:text="${row[0]}"></td><td th:text="${row[1]}"></td></tr></tbody></table>
+        <h2>Số lượt mượn theo thành viên</h2>
+        <table><thead><tr><th>Thành viên</th><th>Số phiếu</th></tr></thead><tbody><tr th:each="row : ${memberCounts}"><td th:text="${row[0]}"></td><td th:text="${row[1]}"></td></tr></tbody></table>
+        <div class="actions"><a class="button secondary" th:href="@{/reports/overdue}">Xem phiếu quá hạn</a></div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Thông tin sách')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <h1>Thông tin sách</h1>
+    <form class="panel" th:action="@{/books}" th:object="${book}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="grid">
+            <div><label>ISBN</label><input th:field="*{isbn}"><div class="error" th:errors="*{isbn}"></div></div>
+            <div><label>Tên sách</label><input th:field="*{title}"><div class="error" th:errors="*{title}"></div></div>
+            <div><label>Tác giả</label><input th:field="*{author}"><div class="error" th:errors="*{author}"></div></div>
+            <div><label>Thể loại</label><select th:field="*{categoryId}"><option value="">-- chọn --</option><option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option></select><div class="error" th:errors="*{categoryId}"></div></div>
+            <div><label>Tổng số lượng</label><input type="number" th:field="*{totalQuantity}"><div class="error" th:errors="*{totalQuantity}"></div></div>
+            <div><label>Số lượng còn</label><input type="number" th:field="*{availableQuantity}"><div class="error" th:errors="*{availableQuantity}"></div></div>
+            <div><label>Trạng thái</label><select th:field="*{status}"><option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option></select></div>
+        </div>
+        <div class="actions"><button type="submit">Lưu</button><a class="button secondary" th:href="@{/books}">Hủy</a></div>
+    </form>
+</main>
+</body>
+</html>

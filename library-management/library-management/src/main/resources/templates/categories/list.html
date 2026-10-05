@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Thể loại')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <div class="toolbar"><h1>Thể loại sách</h1><a class="button" th:href="@{/categories/new}">Thêm thể loại</a></div>
+    <form class="toolbar" th:action="@{/categories}" method="get">
+        <input name="keyword" th:value="${keyword}" placeholder="Tìm theo tên thể loại">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+    <section class="panel">
+        <table>
+            <thead><tr><th>Tên</th><th>Mô tả</th><th>Hoạt động</th><th></th></tr></thead>
+            <tbody>
+            <tr th:each="category : ${categories.content}">
+                <td th:text="${category.name}"></td>
+                <td th:text="${category.description}"></td>
+                <td th:text="${category.active ? 'Có' : 'Không'}"></td>
+                <td>
+                    <a class="button secondary" th:href="@{/categories/{id}/edit(id=${category.id})}">Sửa</a>
+                    <form th:action="@{/categories/{id}/delete(id=${category.id})}" method="post" style="display:inline">
+                        <button class="danger" type="submit">Xóa mềm</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

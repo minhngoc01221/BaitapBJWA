@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Chi tiết phiếu mượn')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <h1 th:text="${'Phiếu mượn #' + borrowing.id}"></h1>
+    <section class="panel">
+        <p><strong>Thành viên:</strong> <span th:text="${borrowing.member.fullName}"></span></p>
+        <p><strong>Ngày mượn:</strong> <span th:text="${borrowing.borrowDate}"></span> <strong>Hạn trả:</strong> <span th:text="${borrowing.dueDate}"></span></p>
+        <p><strong>Trạng thái:</strong> <span th:text="${borrowing.status}"></span> <strong>Tiền phạt:</strong> <span th:text="${borrowing.totalFine}"></span></p>
+        <table>
+            <thead><tr><th>Sách</th><th>Mượn</th><th>Đã trả</th><th>Phạt</th><th>Trả từng phần</th></tr></thead>
+            <tbody>
+            <tr th:each="detail : ${borrowing.details}">
+                <td th:text="${detail.book.title}"></td>
+                <td th:text="${detail.quantity}"></td>
+                <td th:text="${detail.returnedQuantity}"></td>
+                <td th:text="${detail.fineAmount}"></td>
+                <td>
+                    <form th:action="@{/borrowings/{id}/return-detail(id=${borrowing.id})}" method="post">
+                        <input type="hidden" name="detailId" th:value="${detail.id}">
+                        <input type="number" min="1" name="quantity" th:max="${detail.quantity - detail.returnedQuantity}" value="1">
+                        <button type="submit">Trả</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form class="actions" th:action="@{/borrowings/{id}/return(id=${borrowing.id})}" method="post">
+            <button type="submit">Trả toàn bộ</button>
+            <a class="button secondary" th:href="@{/borrowings}">Quay lại</a>
+        </form>
+    </section>
+</main>
+</body>
+</html>

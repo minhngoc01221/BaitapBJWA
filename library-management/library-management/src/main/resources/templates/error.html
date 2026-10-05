@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Lỗi')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <section class="panel">
+        <h1>Không thể xử lý yêu cầu</h1>
+        <p class="error" th:text="${message}">Có lỗi xảy ra.</p>
+        <a class="button secondary" href="javascript:history.back()">Quay lại</a>
+    </section>
+</main>
+</body>
+</html>

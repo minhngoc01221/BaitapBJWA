@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}">Library Management</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:fragment="header">
+    <strong>Library Management</strong>
+    <nav>
+        <a th:href="@{/books}">Sách</a>
+        <a th:href="@{/categories}">Thể loại</a>
+        <a th:href="@{/members}">Thành viên</a>
+        <a th:href="@{/borrowings}">Mượn trả</a>
+        <a th:href="@{/reports}">Báo cáo</a>
+    </nav>
+</header>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Tạo phiếu mượn')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <h1>Tạo phiếu mượn</h1>
+    <form class="panel" th:action="@{/borrowings}" th:object="${borrowing}" method="post">
+        <label>Thành viên</label>
+        <select th:field="*{memberId}">
+            <option value="">-- chọn thành viên --</option>
+            <option th:each="member : ${members}" th:value="${member.id}" th:text="${member.fullName + ' - ' + member.email}"></option>
+        </select>
+        <div class="error" th:errors="*{memberId}"></div>
+
+        <h2>Sách mượn</h2>
+        <table>
+            <thead><tr><th>Sách</th><th>Số lượng</th></tr></thead>
+            <tbody>
+            <tr th:each="item, stat : *{items}">
+                <td><select th:field="*{items[__${stat.index}__].bookId}"><option value="">-- bỏ trống --</option><option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title + ' còn ' + book.availableQuantity}"></option></select></td>
+                <td><input type="number" min="1" th:field="*{items[__${stat.index}__].quantity}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="actions"><button type="submit">Tạo phiếu</button><a class="button secondary" th:href="@{/borrowings}">Hủy</a></div>
+    </form>
+</main>
+</body>
+</html>

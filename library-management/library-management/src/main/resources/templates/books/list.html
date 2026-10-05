@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Danh sách sách')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <div class="toolbar">
+        <h1>Danh sách sách</h1>
+        <a class="button" th:href="@{/books/new}">Thêm sách</a>
+    </div>
+    <form class="toolbar" th:action="@{/books}" method="get">
+        <input name="keyword" th:value="${keyword}" placeholder="Tìm theo tên, tác giả, ISBN hoặc thể loại">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+    <section class="panel">
+        <table>
+            <thead><tr><th>ISBN</th><th>Tên sách</th><th>Tác giả</th><th>Thể loại</th><th>Tồn kho</th><th>Trạng thái</th><th></th></tr></thead>
+            <tbody>
+            <tr th:each="book : ${books.content}">
+                <td th:text="${book.isbn}"></td>
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.category.name}"></td>
+                <td th:text="${book.availableQuantity + '/' + book.totalQuantity}"></td>
+                <td th:text="${book.status}"></td>
+                <td>
+                    <a class="button secondary" th:href="@{/books/{id}/edit(id=${book.id})}">Sửa</a>
+                    <form th:action="@{/books/{id}/delete(id=${book.id})}" method="post" style="display:inline">
+                        <button class="danger" type="submit">Xóa mềm</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

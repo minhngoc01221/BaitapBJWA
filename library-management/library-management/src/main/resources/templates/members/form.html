@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Thông tin thành viên')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <h1>Thông tin thành viên</h1>
+    <form class="panel" th:action="@{/members}" th:object="${member}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="grid">
+            <div><label>Họ tên</label><input th:field="*{fullName}"><div class="error" th:errors="*{fullName}"></div></div>
+            <div><label>Email</label><input th:field="*{email}"><div class="error" th:errors="*{email}"></div></div>
+            <div><label>Điện thoại</label><input th:field="*{phone}"></div>
+            <div><label>Trạng thái</label><select th:field="*{status}"><option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option></select></div>
+        </div>
+        <div class="actions"><button type="submit">Lưu</button><a class="button secondary" th:href="@{/members}">Hủy</a></div>
+    </form>
+</main>
+</body>
+</html>

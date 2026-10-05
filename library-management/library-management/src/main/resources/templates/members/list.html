@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Thành viên')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <div class="toolbar"><h1>Thành viên</h1><a class="button" th:href="@{/members/new}">Thêm thành viên</a></div>
+    <form class="toolbar" th:action="@{/members}" method="get">
+        <input name="keyword" th:value="${keyword}" placeholder="Tìm theo tên hoặc email">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+    <section class="panel">
+        <table>
+            <thead><tr><th>Họ tên</th><th>Email</th><th>Điện thoại</th><th>Trạng thái</th><th></th></tr></thead>
+            <tbody>
+            <tr th:each="member : ${members.content}">
+                <td th:text="${member.fullName}"></td>
+                <td th:text="${member.email}"></td>
+                <td th:text="${member.phone}"></td>
+                <td th:text="${member.status}"></td>
+                <td>
+                    <a class="button secondary" th:href="@{/members/{id}/edit(id=${member.id})}">Sửa</a>
+                    <form th:action="@{/members/{id}/status(id=${member.id})}" method="post" style="display:inline">
+                        <input type="hidden" name="status" th:value="${member.status.name() == 'ACTIVE' ? 'BLOCKED' : 'ACTIVE'}">
+                        <button type="submit" th:text="${member.status.name() == 'ACTIVE' ? 'Khóa' : 'Mở khóa'}"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

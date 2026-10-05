@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Phiếu quá hạn')}"></head>
+<body>
+<header th:replace="~{layout :: header}"></header>
+<main>
+    <h1>Phiếu mượn quá hạn</h1>
+    <section class="panel">
+        <table>
+            <thead><tr><th>Mã</th><th>Thành viên</th><th>Hạn trả</th><th>Trạng thái</th></tr></thead>
+            <tbody><tr th:each="borrowing : ${borrowings}"><td th:text="${borrowing.id}"></td><td th:text="${borrowing.member.fullName}"></td><td th:text="${borrowing.dueDate}"></td><td th:text="${borrowing.status}"></td></tr></tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
